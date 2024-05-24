@@ -20,24 +20,21 @@ router.get('/', async (req, res) => {
 router.get('/:id', (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
-  fetch(`/api/categories/${id}`, {
-    method: "GET",
-    body: JSON.stringify({
-      category_name, product_id
-    }),
-    headers: { 'Content-Type': 'application/json' },
-  })
+  
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   // create a new category
-  fetch(`/api/categories/${id}`, {
-    method: "POST",
-    body: JSON.stringify({
-      category_name, product_id
-    }),
-    headers: { 'Content-Type': 'application/json' },
-  })
+  try { 
+    console.log(req.body)
+    Category.create(req.body).then((newCategory)=> {
+      res.status(200).json(newCategory)
+    }).catch((err)=> {
+      console.log(err)
+    });//creates new category without calling the variable (POST got called)
+  } catch(err) {
+    res.json(err)
+  }
   
 });
 

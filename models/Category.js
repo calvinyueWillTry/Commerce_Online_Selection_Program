@@ -21,7 +21,7 @@ Category.init(
   {//2nd object defines the parameters for the table:
     sequelize,//see line 2
     timestamps: false,
-    freezeTableName: true,//don't pluralize name from 'dish' to 'dishes'
+    freezeTableName: true,//don't pluralize name e.g. from 'dish' to 'dishes'
     underscored: true,//display with underscores
     modelName: 'category',//keyword to export this table
   }
