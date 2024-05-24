@@ -1,5 +1,6 @@
 const express = require('express');//allow backedn JS files
 const routes = require('./routes');//allow routes like paths
+const sequelize = require('./config/connection');
 // import sequelize connection
 
 const app = express();
@@ -12,7 +13,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes);//enable API routes
 
 // sync sequelize models to the database, then turn on the server
-app.listen(PORT, () => {
-//syncs up with the tables created by the Models, to render them
-  console.log(`App listening on port http://localhost:${PORT}!`);
-});
+sequelize.sync({force: false}).then(()=>{ //
+  app.listen(PORT, () => {
+    //syncs up with the tables created by the Models, to render them
+      console.log(`App listening on port http://localhost:${PORT}!`);
+    });
+
+})
+

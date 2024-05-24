@@ -3,26 +3,60 @@ const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // find all categories
   // be sure to include its associated Products
+  //fetch typically fetches on the front end
+  
+  try { //all the categoires, and the products within them
+    const categoryName = await Category.findAll({ include: [Product]});
+    res.json(categoryName)
+  } catch (err) {
+    res.json(err)
+  };
+  
 });
 
 router.get('/:id', (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
+  fetch(`/api/categories/${id}`, {
+    method: "GET",
+    body: JSON.stringify({
+      category_name, product_id
+    }),
+    headers: { 'Content-Type': 'application/json' },
+  })
 });
 
 router.post('/', (req, res) => {
   // create a new category
+  fetch(`/api/categories/${id}`, {
+    method: "POST",
+    body: JSON.stringify({
+      category_name, product_id
+    }),
+    headers: { 'Content-Type': 'application/json' },
+  })
+  
 });
 
 router.put('/:id', (req, res) => {
   // update a category by its `id` value
+  fetch(`/api/categories/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({category_name}),
+    headers: { 'Content-Type': 'application/json' },
+  })
 });
 
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
+  fetch(`/api/categories/${id}`, {
+    method: "DELETE", 
+    body: JSON.stringify({category_name}),
+    headers: { 'Content-Type': 'application/json' },
+  })
 });
 
 module.exports = router;

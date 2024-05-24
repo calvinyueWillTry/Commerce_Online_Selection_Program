@@ -15,12 +15,8 @@ Category.init(
   category_name: {
     type: DataTypes.STRING,
     allowNull: false,
-  },
-  product_id: { //haveMany
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    references: {model: "product"} //from Product.js
   }
+  //doens't need product_id since the product needs a category (1 to many)
 },
   {//2nd object defines the parameters for the table:
     sequelize,//see line 2

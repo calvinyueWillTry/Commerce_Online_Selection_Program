@@ -30,7 +30,7 @@ Product.init(
       defaultValue: 10,
       validate: { isNumeric: true }
     },
-    category_id: { //hasOne
+    category_id: { //OnetoMany(products) index.js line 8
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {model: "category"} //from Category.js

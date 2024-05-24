@@ -12,15 +12,11 @@ Tag.init(
       primaryKey: true,
       autoIncrement: true,
     },
-      tag_name: { //# and letters
+      tag_name: { //# and letters, ManytoMany(products)
         type: DataTypes.STRING,
           allowNull: false,
-    },
-      product_id: { //hasOne
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {model: "product"} //from Product.js
-    }
+    } 
+ 
   },
   {
     sequelize,
