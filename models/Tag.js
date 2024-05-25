@@ -16,7 +16,7 @@ Tag.init(
         type: DataTypes.STRING,
           allowNull: false,
     } 
- 
+    //independent parent, so no foreignKey
   },
   {
     sequelize,

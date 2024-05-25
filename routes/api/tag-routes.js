@@ -21,10 +21,10 @@ router.get('/:id', (req, res) => {
 
 router.post('/', async (req, res) => {
   // create a new tag
-  try { //is it jumping the gun before the await? Apparently
+  try { //is it jumping the gun before the await? Apparently...
     console.log(req.body);
-    await Tag.create(req.body);
-    res.status(200);
+   const tag = await Tag.create(req.body);
+    res.status(200).json(tag);
   } catch(err) {
     res.json(err)
   }

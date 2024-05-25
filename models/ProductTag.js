@@ -1,7 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
-
 const sequelize = require('../config/connection');
-
 class ProductTag extends Model {}
 
 ProductTag.init(
@@ -13,15 +11,16 @@ ProductTag.init(
       autoIncrement: true,
     },
     //reference to control 2 relationships because manytomany
-    tag_id: { //hasOne
+    //this baby model has 2 parents
+    tag_id: { 
       type: DataTypes.INTEGER,
       allowNull: true,
-      references: {model: "tag"} //from Tag.js
+      references: {model: "tag", key: "id"} //from Tag.js
     },
     product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {model: "product"} //from Product.js
+      references: {model: "product", key: "id"} //from Product.js
     }
   },
   {

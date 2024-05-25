@@ -19,7 +19,7 @@ Product.init(
         type: DataTypes.STRING,//VARCHAR?
           allowNull: false,
     },
-    product_price: {
+    price: {
       type: DataTypes.DECIMAL,
         allowNull: true,
         validate: { isDecimal: true } 
@@ -30,10 +30,11 @@ Product.init(
       defaultValue: 10,
       validate: { isNumeric: true }
     },
+    //This is the child model that receives id from the parent below
     category_id: { //OnetoMany(products) index.js line 8
       type: DataTypes.INTEGER,
       allowNull: true,
-      references: {model: "category"} //from Category.js
+      references: {model: "category", key: "id"} //foreign, then key from Category.js
     }
   },
   {

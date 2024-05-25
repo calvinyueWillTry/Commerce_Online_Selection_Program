@@ -7,20 +7,23 @@ router.get('/', async (req, res) => {
   // find all categories
   // be sure to include its associated Products
   //fetch typically fetches on the front end
-  
-  try { //all the categoires, and the products within them
-    const categoryName = await Category.findAll({ include: [Product]});
+  try { //all the categoires, and the products (child) within them
+    const categoryName = await Category.findAll({ include: [Product]}); //joins child product with category
     res.json(categoryName)
   } catch (err) {
     res.json(err)
   };
-  
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
-  
+  try { //where {requests by the parameter of the id}
+    const categoryName = await Category.findOne( {where: {id: req.params.id},  include: [Product]});
+    res.json(categoryName)
+  } catch (err) {
+    res.json(err)
+  };
 });
 
 router.post('/', async (req, res) => {
@@ -38,22 +41,24 @@ router.post('/', async (req, res) => {
   
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   // update a category by its `id` value
-  fetch(`/api/categories/${id}`, {
-    method: "PUT",
-    body: JSON.stringify({category_name}),
-    headers: { 'Content-Type': 'application/json' },
-  })
+  try {
+    const updatedCategory = await Category.update(req.body, { where: {id: req.params.id}, include: [Product]});
+    res.json(updatedCategory);
+  } catch(err) {
+    res.json(err)
+  }
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
-  fetch(`/api/categories/${id}`, {
-    method: "DELETE", 
-    body: JSON.stringify({category_name}),
-    headers: { 'Content-Type': 'application/json' },
-  })
+  try {
+    const deleteCategory = await Category.destroy({where: {id: req.params.id}, include: [Product]});
+    res.json(deleteCategory);
+  } catch(err) {
+    res.json(err)
+  }
 });
 
 module.exports = router;
