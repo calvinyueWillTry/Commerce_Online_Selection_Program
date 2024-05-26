@@ -8,8 +8,8 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Products
   //fetch typically fetches on the front end
   try { //all the categoires, and the products (child) within them
-    const categoryName = await Category.findAll({ include: [Product]}); //joins child product with category
-    res.json(categoryName)
+    const categoriesName = await Category.findAll({ include: [Product]}); //joins child product with category
+    res.json(categoriesName)
   } catch (err) {
     res.json(err)
   };
